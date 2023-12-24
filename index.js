@@ -5,7 +5,8 @@ async function createHTML() {
             
             const main = document.getElementById('collection');
             const favs = document.getElementById('favorites');
-            
+            const colBox = document.querySelector('.colCount');
+            const favBox = document.querySelector('.favCount');
             
 
             const items = spells.slice(0, 30);
@@ -17,8 +18,8 @@ async function createHTML() {
                   text1.class = 'checkContent';
                   li.className = `item ${item.type}`;
                   li.id = item.name;
-                  title1.innerHTML = `<strong>${item.name}</strong> <br> <br>`;
-                  text1.innerHTML = `Effect: <br> ${item.effect} <br> <br>
+                  title1.innerHTML = `<strong>${item.name}</strong>`;
+                  text1.innerHTML = `Effect: ${item.effect} <br> <br
                                     Incantation: <br> ${item.incantation} <br> <br>
                                     Type: ${item.type}`;
                   li.append(title1, text1);
@@ -62,33 +63,56 @@ async function createHTML() {
                   const collectionItems = collectionCon.querySelectorAll('.item');
                   const favoriteItems = favoriteCon.querySelectorAll('.item');
 
-                  var uniqueSpells = [];
-                  var countArray = [];
-                  var uniqueSpellCount = [];
+                  var colUniqueSpells = [];
+                  var colCountArray = [];
+                  var colUniqueSpellCount = [];
+                  var favUniqueSpells = [];
+                  var favCountArray = [];
+                  var favUniqueSpellCount = [];
+
                   collectionItems.forEach(element => {
-                        if (!uniqueSpells.includes(element.className.slice(5))) {
-                              uniqueSpells.push(element.className.slice(5));
+                        if (!colUniqueSpells.includes(element.className.slice(5))) {
+                              colUniqueSpells.push(element.className.slice(5));
+                              colUniqueSpellCount.push(0);
                         }
-                        countArray.push(element.className.slice(5));
+                        colCountArray.push(element.className.slice(5));
                   });
-
-                  uniqueSpellCount.length = uniqueSpells.length;
-                  for (i = 0; i < uniqueSpellCount.length; i++) {
-                        uniqueSpellCount[i] = 0;
-                  }
-
-                  countArray.forEach(element => {
-                        if (uniqueSpells.includes(element)) {
-                              uniqueSpellCount[uniqueSpells.indexOf(element)] += 1;
+                  
+                  colUniqueSpells.sort();
+                  colCountArray.forEach(element => {
+                        if (colUniqueSpells.includes(element)) {
+                              colUniqueSpellCount[colUniqueSpells.indexOf(element)] += 1;
                         }
                   })
 
-                  for (i = 0; i < uniqueSpellCount.length; i++) {
+                  colBox.innerHTML = "<h3>Spell Type Count</h3>"
+                  for (i = 0; i < colUniqueSpellCount.length; i++) {
                         const type = document.createElement('div');
-                        type.innerHTML = `${uniqueSpells[i]}: ${uniqueSpellCount[i]}`
+                        type.innerHTML = `${colUniqueSpells[i]}: ${colUniqueSpellCount[i]}`;
+                        colBox.append(type);
                   }
 
-                  console.log(uniqueSpells, uniqueSpellCount);
+                  favoriteItems.forEach(element => {
+                        if (!favUniqueSpells.includes(element.className.slice(5))) {
+                              favUniqueSpells.push(element.className.slice(5));
+                              favUniqueSpellCount.push(0);
+                        }
+                        favCountArray.push(element.className.slice(5));
+                  });
+
+                  favUniqueSpells.sort();
+                  favCountArray.forEach(element => {
+                        if (favUniqueSpells.includes(element)) {
+                              favUniqueSpellCount[favUniqueSpells.indexOf(element)] += 1;
+                        }
+                  })
+
+                  favBox.innerHTML = "<h3>Spell Type Count</h3>"
+                  for (i = 0; i < favUniqueSpellCount.length; i++) {
+                        const type = document.createElement('div');
+                        type.innerHTML = `${favUniqueSpells[i]}: ${favUniqueSpellCount[i]}`;
+                        favBox.append(type);
+                  }
             }
             chantCount();
 
@@ -102,7 +126,7 @@ async function createHTML() {
                   elem.addEventListener('click', function () {
                         const newChild = document.getElementById(this.id);
                         this.parentElement.id === 'collection' ? addCollection(newChild) : remCollection(newChild);
-                        // chantCount();
+                        chantCount();
                   });
             });
       }
