@@ -20,7 +20,7 @@ nav {
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  background-color: rgb(0, 37, 75);
+  background: linear-gradient(to right, rgb(132, 156, 23), rgb(82, 100, 0));
   color: rgb(216, 216, 216);
   z-index: 100;
 }
@@ -57,17 +57,41 @@ ul, div {
 
 .heading {
   padding: 1rem;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.heading h2 {
+  flex: 2;
+  text-align: center;
+}
+
+.boxCount {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  border: solid 1px white;
+  border-radius: 10px;
+  padding: 10px 5px 20px;
 }
 
 .item {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
   list-style: none;
-  border: solid 1px rgba(30, 30, 30, .5);
+  border: solid 5px rgba(30, 30, 30, .5);
   border-radius: 30px;
-  padding: 10px;
+  padding: 0px;
   width: 9.5rem;
+  height: 200px;
   text-align: center;
   margin: 5px;
   box-shadow: 0 5px 10px rgba(30, 30, 30, .5);
+}
+
+.item div:nth-child(2) {
+  font-size: 10px;
 }
 
 .item:hover, .sort:hover {
@@ -81,8 +105,9 @@ ul, div {
 
 #collection .item {
   color: rgb(192, 192, 192);
+  background: linear-gradient(45deg, #3c956c, transparent);
 }
 
 #favorites .item {
-  background-color: rgba(15, 46, 66, .1);
+  background: linear-gradient(45deg, #f87373, transparent);
 }
